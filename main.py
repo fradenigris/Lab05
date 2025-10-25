@@ -38,6 +38,17 @@ def main(page: ft.Page):
     # Tutti i TextField per le info necessarie per aggiungere una nuova automobile (marca, modello, anno, contatore posti)
     # TODO
 
+    input_marca = ft.TextField(label = 'Marca')
+
+    input_modello = ft.TextField(label = 'Modello')
+
+    input_anno = ft.TextField(label = 'Anno')
+
+    txt_counter = ft.TextField(width=60,
+                           text_size=16,
+                           disabled=True,
+                           text_align=ft.TextAlign.CENTER)
+
     # --- FUNZIONI APP ---
     def aggiorna_lista_auto():
         lista_auto.controls.clear()
@@ -60,12 +71,42 @@ def main(page: ft.Page):
     # Handlers per la gestione dei bottoni utili all'inserimento di una nuova auto
     # TODO
 
+    def aggiungi_automobile(e):
+
+
+    txt_counter.value = 0
+
+    def handlerMinus(e):
+        currentVal = txt_counter.value
+        if currentVal > 0:
+            currentVal -= 1
+            txt_counter.value = currentVal
+            txt_counter.update()
+
+    def handlerPlus(e):
+        currentVal = txt_counter.value
+        currentVal += 1
+        txt_counter.value = currentVal
+        txt_counter.update()
+
+    btnMinus = ft.IconButton(icon = ft.Icons.REMOVE,
+                             icon_size = 24,
+                             icon_color = 'red',
+                             on_click = handlerMinus)
+
+    btnPlus = ft.IconButton(icon = ft.Icons.ADD,
+                            icon_size = 24,
+                            icon_color = 'green',
+                            on_click = handlerPlus)
+
     # --- EVENTI ---
     toggle_cambia_tema = ft.Switch(label="Tema scuro", value=True, on_change=cambia_tema)
     pulsante_conferma_responsabile = ft.ElevatedButton("Conferma", on_click=conferma_responsabile)
 
     # Bottoni per la gestione dell'inserimento di una nuova auto
     # TODO
+
+    pulsante_aggiungi_automobile = ft.ElevatedButton("Aggiungi automobile", on_click = aggiungi_automobile)
 
     # --- LAYOUT ---
     page.add(
@@ -84,6 +125,18 @@ def main(page: ft.Page):
 
         # Sezione 3
         # TODO
+
+        ft.Divider(),
+        ft.Text("Aggiungi nuova automobile", size = 20),
+        ft.Row(spacing = 20,
+               controls = [input_marca, input_modello, input_anno, ft.Row(
+                                controls = [btnMinus, txt_counter, btnPlus],
+                                spacing = 0,
+                                vertical_alignment = ft.CrossAxisAlignment.CENTER)],
+               alignment = ft.MainAxisAlignment.CENTER),
+
+        ft.Row(controls = [pulsante_aggiungi_automobile],
+               alignment = ft.MainAxisAlignment.CENTER),
 
         # Sezione 4
         ft.Divider(),
