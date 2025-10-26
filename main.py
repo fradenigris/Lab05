@@ -71,9 +71,6 @@ def main(page: ft.Page):
     # Handlers per la gestione dei bottoni utili all'inserimento di una nuova auto
     # TODO
 
-    def aggiungi_automobile(e):
-
-
     txt_counter.value = 0
 
     def handlerMinus(e):
@@ -98,6 +95,27 @@ def main(page: ft.Page):
                             icon_size = 24,
                             icon_color = 'green',
                             on_click = handlerPlus)
+
+    def aggiungi_automobile(e):
+        try:
+            anno = int(input_anno.value)
+            posti = int(txt_counter.value)
+
+            autonoleggio.aggiungi_automobile(input_marca.value, input_modello.value, anno, posti)
+
+            aggiorna_lista_auto()
+
+            input_marca.value = ""
+            input_modello.value = ""
+            input_anno.value = ""
+            txt_counter.value = 0
+
+            alert.show_alert("✅ Automobile aggiunta con successo!")
+
+        except ValueError:
+            alert.show_alert('❌ Errore: inserisci valori numerici validi per anno e posti.')
+
+        page.update()
 
     # --- EVENTI ---
     toggle_cambia_tema = ft.Switch(label="Tema scuro", value=True, on_change=cambia_tema)
