@@ -71,14 +71,16 @@ def main(page: ft.Page):
     # Handlers per la gestione dei bottoni utili all'inserimento di una nuova auto
     # TODO
 
-    txt_counter.value = 0
+    txt_counter.value = 1
 
     def handlerMinus(e):
         currentVal = txt_counter.value
-        if currentVal > 0:
+        if currentVal > 1:
             currentVal -= 1
             txt_counter.value = currentVal
             txt_counter.update()
+        else:
+            raise Exception(alert.show_alert('❌ Errore: il numero di posti non può essere uguale a zero!'))
 
     def handlerPlus(e):
         currentVal = txt_counter.value
@@ -113,7 +115,7 @@ def main(page: ft.Page):
             alert.show_alert("✅ Automobile aggiunta con successo!")
 
         except ValueError:
-            alert.show_alert('❌ Errore: inserisci valori numerici validi per anno e posti.')
+            alert.show_alert("❌ Errore: inserisci un valore numerico valido per l'anno.")
 
         page.update()
 
